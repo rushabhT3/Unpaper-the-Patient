@@ -1,12 +1,11 @@
 import fitz
 from pathlib import Path
-from typing import List
 
 
 class VisionService:
     """Service for handling PDF to Image conversion and Visual OCR logic."""
 
-    async def pdf_to_images(self, pdf_path: Path) -> List[bytes]:
+    async def pdf_to_images(self, pdf_path: Path) -> list[bytes]:
         """
         Converts each page of a PDF into an image (bytes).
         Uses PyMuPDF (fitz) for high-quality rendering.

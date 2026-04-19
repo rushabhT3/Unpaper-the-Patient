@@ -1,4 +1,4 @@
-from typing import Annotated, List, Dict, Any, Union, Optional
+from typing import Dict, Optional
 from typing_extensions import TypedDict
 from langgraph.graph import StateGraph, START, END
 from src.domain.models import (
@@ -18,7 +18,7 @@ import asyncio
 class GraphState(TypedDict):
     pdf_path: Path
     claim_id: str
-    page_images: List[bytes]
+    page_images: list[bytes]
     classifications: Dict[int, DocType]  # page_index -> type
     id_result: Optional[IDExtraction]
     discharge_result: Optional[DischargeExtraction]
