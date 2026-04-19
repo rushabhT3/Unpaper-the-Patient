@@ -52,3 +52,8 @@ async def process(
         raise HTTPException(500, detail=str(e))
     finally:
         tmp.unlink(missing_ok=True)
+
+@app.get("/health")
+async def health_check():
+    """Returns the health status of the API."""
+    return {"status": "healthy"}
