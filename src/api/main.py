@@ -1,15 +1,19 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from pathlib import Path
 import tempfile, uuid
 from src.core.config import settings
 from src.application.factory import create_pipeline
 
-app = FastAPI(title=settings.app_name)
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # This block runs on startup
+    yield
+    # This block runs on shutdown
 
 
-@app.on_event("startup")
-async def startup():
-    pass
+app = FastAPI(title=settings.app_name, lifespan=lifespan)
 
 
 @app.post("/api/process")
@@ -52,6 +56,7 @@ async def process(
         raise HTTPException(500, detail=str(e))
     finally:
         tmp.unlink(missing_ok=True)
+
 
 @app.get("/health")
 async def health_check():
